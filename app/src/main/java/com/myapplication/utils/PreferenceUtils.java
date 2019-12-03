@@ -171,7 +171,6 @@ public class PreferenceUtils {
     }
 
 
-
     public  String isTokenAvailable(Context context) {
         return mPrefs.getString(PREF_TOKEN, null);
     }
