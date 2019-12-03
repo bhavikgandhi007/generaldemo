@@ -47,11 +47,6 @@ public class RestService {
             new Retrofit.Builder()
                     .baseUrl(new EnvironmentConfig().getBaseUrl())
                     .addConverterFactory(GsonConverterFactory.create());
-    private Retrofit.Builder builderGeneric =
-            new Retrofit.Builder()
-                    .baseUrl(new EnvironmentConfig().getBaseUrl())
-                    .addConverterFactory(GsonConverterFactory.create());
-
 
     private Retrofit retrofit = builder.build();
 
@@ -64,7 +59,7 @@ public class RestService {
         OkHttpClient.Builder httpClient = App.baseClient
                 .newBuilder();
 
-        if (App.Token.equals("") && App.Token.isEmpty()) {
+        if (App.Token != null && App.Token.equals("") && App.Token.isEmpty()) {
 
         } else {
             AuthenticationInterceptor tokeninterceptor =

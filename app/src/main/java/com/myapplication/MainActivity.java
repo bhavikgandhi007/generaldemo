@@ -2,13 +2,14 @@ package com.myapplication;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.myapplication.model.Employees;
 import com.myapplication.rest.RestClient;
 import com.myapplication.rest.RestService;
-import com.myapplication.rest.RetroFitServiceGenerator;
+import com.myapplication.rest.RetrofitManager;
 import com.myapplication.utils.Utility;
 
 import java.util.ArrayList;
@@ -23,19 +24,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getAllEmployees(MainActivity.this);
     }
 
 
     // Start Calling Rest Api
     public void getAllEmployees(final Context context) {
         if (Utility.isOnline(context)) {
-            RestClient service = new RetroFitServiceGenerator(context).createService(RestClient.class);
+            RestClient service = new RetrofitManager(context).request(RetrofitManager.METHOD.GET, true, false);
             Call<ArrayList<Employees>> call = service.getEmployeeData();
             call.enqueue(new Callback<ArrayList<Employees>>() {
                 @Override
                 public void onResponse(Call<ArrayList<Employees>> call, Response<ArrayList<Employees>> response) {
                     if (response.isSuccessful()) {
-
+                        Log.e("TAG", "onResponse: "+response.toString() );
 
                     } else {
                         Utility.showError(MainActivity.this, response.errorBody(), response.code());

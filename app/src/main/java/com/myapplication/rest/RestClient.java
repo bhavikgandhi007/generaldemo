@@ -10,7 +10,7 @@ import retrofit2.http.GET;
 public interface RestClient {
 
 
-    @GET("/employees")
+    @GET("api/v1/employees")
     Call<ArrayList<Employees>> getEmployeeData();
 
 }

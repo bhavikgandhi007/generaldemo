@@ -5,6 +5,12 @@ import android.content.Context;
 public class RetrofitManager {
 
 
+    Context context;
+
+    public RetrofitManager(Context context) {
+        this.context = context;
+    }
+
     public enum METHOD {
         GET,
         GETWITHPROGRESS,
@@ -20,7 +26,7 @@ public class RetrofitManager {
         FILEUPLOADWITHPROGRESS,
     }
 
-    public RestClient request(Context context, final METHOD method, boolean cache, boolean isLongCache) {
+    public RestClient request(final METHOD method, boolean cache, boolean isLongCache) {
 
         RestClient service = null;
         if (cache && (method == METHOD.GET || method == METHOD.GETWITHPROGRESS)) {
@@ -29,9 +35,10 @@ public class RetrofitManager {
         } else if(isLongCache && (method == METHOD.GET || method == METHOD.GETWITHPROGRESS)) {
             service = new RestService(context).createLongCacheService(RestClient.class);
             return service;
-        } 
+        }  else {
+            service = new RestService(context).createServiceNoCache(RestClient.class);
+            return service;
+        }
 
-
-        return service;
     }
 }

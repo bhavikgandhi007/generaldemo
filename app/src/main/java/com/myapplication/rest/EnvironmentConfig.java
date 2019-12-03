@@ -13,7 +13,7 @@ public class EnvironmentConfig {
     }
 
     public String getBaseUrl() {
-        return "http://dummy.restapiexample.com/api/";
+        return "http://dummy.restapiexample.com/";
     }
 
 
